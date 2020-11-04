@@ -21,10 +21,17 @@ class GroupEvent < ApplicationRecord
         zipcode: location&.zipcode
       },
       started_at: started_at,
-      ended_at: ended_at
+      ended_at: ended_at,
+      duration: duration
     }
   end
-
+  def duration
+    unless ended_at.present? && started_at.present?
+      return 0
+    end
+    (ended_at - started_at).to_i
+  end
+  
   def publish_able?
     name.present? &&
     location&.state.present? &&

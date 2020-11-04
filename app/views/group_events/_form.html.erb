@@ -48,12 +48,12 @@
 
   <%= form.label :started_at %>
   <div class="form-group" class="datetimepicker">
-    <%= form.datetime_select :started_at, class: "form-control" %>
+    <%= form.text_field :started_at ,class: 'form-control datepicker', placeholder: 'yyyy-mm-dd' %>
   </div>
 
   <%= form.label :ended_at %>
   <div class="form-group">
-    <%= form.datetime_select :ended_at, class: "form-control" %>
+    <%= form.text_field :ended_at ,class: 'form-control datepicker', placeholder: 'yyyy-mm-dd' %>
   </div>
 
   <%= form.label "Secret so you are only authorized to edit" %>
@@ -71,3 +71,9 @@
     <div>
   <% end %>
 <% end %>
+
+<script>
+$(function(){
+  $('.datepicker').datepicker({dateFormat:'yy-mm-dd'});
+})
+</script>

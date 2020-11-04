@@ -12,7 +12,7 @@ describe "GET #index" do
     end
     it "JSON body response contains expected user attributes" do
       json_response = JSON.parse response.body
-      expect(json_response[0].keys()).to match_array ["id","name", "description","started_at","ended_at","location"]
+      expect(json_response[0].keys()).to match_array ["id","name", "duration","description","started_at","ended_at","location"]
     end
   end
   describe "PUT #update" do

@@ -42,6 +42,10 @@
     <strong>Ended at:</strong>
     <%= @group_event.ended_at %>
   </p>
+  <p class="form-control">
+    <strong>Duration:</strong>
+    <%= @group_event.duration %> days
+  </p>
 
   <div class="text-center">
     <%= link_to  "Edit", edit_user_group_event_path(@user,@group_event), class: "btn btn-light" %>

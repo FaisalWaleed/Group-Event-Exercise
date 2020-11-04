@@ -1,5 +1,7 @@
+
+<% button_text = @group_event.id.present? ? "Update Event" : "Create Event" %>
 <%= form_with(model: [@user, @group_event], local: true )do |form| %>
-  <% if group_event.errors.any? %>
+  <% if @group_event.errors.any? %>
     <div id="error_explanations">
       <h2><%= pluralize(group_event.errors.count, "error") %> prohibited this group_event from being saved:</h2>
 
@@ -11,7 +13,8 @@
     </div>
   <% end %>
 
-  <%= form.label :name %>
+
+  <%= form.label :title %>
   <div class="form-group">
     <%= form.text_field :name, requried: true, class: "form-control"  %>
   </div>
@@ -53,7 +56,12 @@
     <%= form.datetime_select :ended_at, class: "form-control" %>
   </div>
 
+  <%= form.label "Secret so you are only authorized to edit" %>
+  <div class="form-group">
+    <%= form.text_field :secret, class: "form-control", value: "" %>
+  </div>
+
   <div class="actions text-center">
-    <%= form.submit "Create Event", class: "btn btn-light " %>
+    <%= form.submit button_text, class: "btn btn-light " %>
   </div>
 <% end %>

@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  user: one
+  latitude: 9.99
+  longitude: 9.99
+  started_at: 2020-11-03 17:08:43
+  ended_at: 2020-11-03 17:08:43
+  deleted_at: 2020-11-03 17:08:43
+
+two:
+  name: MyString
+  user: two
+  latitude: 9.99
+  longitude: 9.99
+  started_at: 2020-11-03 17:08:43
+  ended_at: 2020-11-03 17:08:43
+  deleted_at: 2020-11-03 17:08:43

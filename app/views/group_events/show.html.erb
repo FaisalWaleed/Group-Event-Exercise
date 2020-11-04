@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+<p id="error"><%= alert %></p>
+<% unless @group_event.publish?%>
+  <%= link_to  "Publish", publish_user_group_event_path(@user,@group_event),method: :post %>
+<% end %>
+<p>
+  <strong>Name:</strong>
+  <%= @group_event.name %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%= @group_event.description %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @group_event.user_id %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @group_event.location.state %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @group_event.location.city %>
+</p>
+<p>
+  <strong>Street:</strong>
+  <%= @group_event.location.street %>
+</p>
+
+<p>
+  <strong>ZipCode:</strong>
+  <%= @group_event.location.zipcode %>
+</p>
+
+<p>
+  <strong>Started at:</strong>
+  <%= @group_event.started_at %>
+</p>
+
+<p>
+  <strong>Ended at:</strong>
+  <%= @group_event.ended_at %>
+</p>
+<%= link_to  "Edit", edit_user_group_event_path(@user,@group_event) %>
+<%= link_to 'Back', user_path(@group_event.user) %>

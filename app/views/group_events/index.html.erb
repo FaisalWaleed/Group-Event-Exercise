@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Group Events</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>User</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Started at</th>
+      <th>Ended at</th>
+      <th>Deleted at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @group_events.each do |group_event| %>
+      <tr>
+        <td><%= group_event.name %></td>
+        <td><%= group_event.user.name %></td>
+        <td><%= group_event.started_at %></td>
+        <td><%= group_event.ended_at %></td>
+        <td><%= group_event.deleted_at %></td>
+        <td><%= link_to 'Show', user_group_event_path(@user,group_event)%></td>
+        <td><%= link_to 'Edit', edit_user_group_event_path(@user,group_event) %></td>
+        <td><%= link_to 'Destroy', user_group_event_path(@user,group_event), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

@@ -20,8 +20,17 @@ class GroupEvent < ApplicationRecord
       ended_at: ended_at
     }
   end
+
   def publish_able?
-    name.present? && location&.state.present? && location&.street.present?  && location&.city.present?  && location&.zipcode.present? && description.present? && started_at.present? && ended_at.present?
+    name.present? &&
+    location&.state.present? &&
+    location&.street.present? &&
+    location&.city.present? &&
+    location&.zipcode.present? &&
+    description.present? &&
+    started_at.present? &&
+    ended_at.present? &&
+    secret.present?
   end
 
 end

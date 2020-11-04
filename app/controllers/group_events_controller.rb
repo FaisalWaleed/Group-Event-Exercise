@@ -1,6 +1,8 @@
 class GroupEventsController < ApplicationController
   before_action :set_group_event, only: [:show, :edit, :update, :destroy, :publish]
   before_action :load_user
+  before_action :render_edit_if_unauthorized, only: %i[update]
+
   def index
     @group_events = GroupEvent.all
   end
@@ -74,6 +76,7 @@ class GroupEventsController < ApplicationController
         :started_at,
         :ended_at,
         :description,
+        :secret,
         location_attributes: [
           :state,
           :city,
@@ -81,5 +84,12 @@ class GroupEventsController < ApplicationController
           :zipcode
         ]
       )
+    end
+
+    def render_edit_if_unauthorized
+      if !params[:secret].nil? && params[:secret] != @group_event.secret
+        flash[:error] = "either unauthorized or secret not provided"
+        redirect_to edit_user_group_event_path @user
+      end
     end
 end

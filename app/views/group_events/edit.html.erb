@@ -8,10 +8,8 @@
   </div>
 <% end %>
 
-
-
 <%= render 'form', group_event: @group_event %>
 
-<div class="text-center">
+<div class="actions text-center" style="margin: 0.5rem">
   <%= link_to 'Back', user_path(@group_event.user), class: "btn btn-light" %>
 </div>

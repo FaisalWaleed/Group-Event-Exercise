@@ -55,7 +55,7 @@ class GroupEventsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to user_group_event_path(@user,@group_event), alert: "Group event can't  published. Please fill all fields." }
+        format.html { redirect_to edit_user_group_event_path(@user,@group_event), alert: "Group event can't  published. Please fill all fields." }
       end
     end
   end
@@ -87,7 +87,7 @@ class GroupEventsController < ApplicationController
     end
 
     def render_edit_if_unauthorized
-      if !params[:secret].nil? && params[:secret] != @group_event.secret
+      if group_event_params[:secret].nil? || group_event_params[:secret] != @group_event.secret
         flash[:error] = "either unauthorized or secret not provided"
         redirect_to edit_user_group_event_path @user
       end

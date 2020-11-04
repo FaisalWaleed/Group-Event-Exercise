@@ -1,10 +1,14 @@
 class GroupEvent < ApplicationRecord
-  default_scope {where(:deleted_at => nil)}
+
   belongs_to :user
   has_rich_text :description
   has_one :location, :dependent => :destroy
-  validates :name, presence: true
+
   accepts_nested_attributes_for :location, allow_destroy: true
+  validates :name, presence: true
+
+  default_scope { where(deleted_at: nil).where("ended_at < ?", Time.now) }
+
   def to_object
     {
       id: id,

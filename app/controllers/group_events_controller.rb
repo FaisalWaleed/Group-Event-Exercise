@@ -20,7 +20,7 @@ class GroupEventsController < ApplicationController
     @group_event = @user.group_events.new(group_event_params)
 
     respond_to do |format|
-      if @group_event.save!
+      if @group_event.save
         format.html { redirect_to @user, notice: 'Group event was successfully created.' }
       else
         format.html { render :new }

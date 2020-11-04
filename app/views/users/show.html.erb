@@ -1,14 +1,20 @@
 <p id="notice"><%= notice %></p>
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-<%= render partial: "group_events_list" %>
-<%= link_to "New Group Event", new_user_group_event_path(@user)%>
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div id="user-show">
+  <p class="form-control">
+    <strong>User:</strong>
+    <%= @user.name %>
+  </p>
+
+  <% if @user.group_events.any?%>
+    <%= render partial: "/group_events/group_events_list" %>
+  <% else %>
+    No group events
+  <% end %>
+
+
+  <div class="text-center">
+    <%= link_to "New Group Event", new_user_group_event_path(@user), class: "btn btn-light"%>
+    <%= link_to 'Back', users_path, class: "btn btn-light" %>
+  </div>
+</div>

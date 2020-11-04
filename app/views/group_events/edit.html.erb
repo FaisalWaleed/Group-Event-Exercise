@@ -1,5 +1,10 @@
-<h1>Editing Group Event</h1>
+<div class="h1">
+  <h1>Editing Group Event</h1>
+</div>
+
 
 <%= render 'form', group_event: @group_event %>
 
-<%= link_to 'Back', user_path(@group_event.user) %>
+<div class="text-center">
+  <%= link_to 'Back', user_path(@group_event.user), class: "btn btn-light" %>
+</div>

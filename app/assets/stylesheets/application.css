@@ -10,6 +10,79 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require bootstrap
  *= require_tree .
  *= require_self
  */
+
+.body-styles {
+  font-size: 20px;
+  margin: 0;
+  background: #5F7988;
+}
+
+.container {
+  border-radius: 1%;
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+.form-group {
+  border: 1px solid teal;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 2rem ;
+}
+
+.h1 {
+  color: teal;
+  text-align: center
+}
+
+.btn-primary {
+  width: 20rem;
+  background: teal;
+  font-size: 2rem;
+  border-radius: 2rem;
+}
+
+
+.btn-danger {
+  color: white !important;
+}
+
+td {
+  font-size: 1rem;
+  border-radius: 2rem;
+  color: teal;
+}
+
+.btn-info {
+  color: white !important;
+}
+
+label {
+  color: teal;
+}
+
+#error_explanations {
+  color: red
+}
+
+.field_with_errors {
+  background: transparent;
+}
+
+#group_event strong {
+  color: teal;
+}
+
+.group-event-description {
+  padding: 1rem;
+  border: 1px solid teal;
+  background: white;
+}
+
+#user-show strong {
+  color: teal;
+}

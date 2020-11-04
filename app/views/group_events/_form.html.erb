@@ -1,6 +1,6 @@
 <%= form_with(model: [@user, @group_event], local: true )do |form| %>
   <% if group_event.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanations">
       <h2><%= pluralize(group_event.errors.count, "error") %> prohibited this group_event from being saved:</h2>
 
       <ul>
@@ -11,44 +11,49 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, requried: true %>
+  <%= form.label :name %>
+  <div class="form-group">
+    <%= form.text_field :name, requried: true, class: "form-control"  %>
   </div>
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.rich_text_area :description %>
+
+  <%= form.label :description %>
+  <div class="form-group">
+    <%= form.rich_text_area :description, class: "form-control rich-text-area text-left" %>
   </div>
     <%= form.fields_for :location do |f| %>
-    <div class="field">
-      <%= f.label :state %>
-      <%= f.text_field :state %>
+
+    <%= f.label :state %>
+    <div class="form-group">
+      <%= f.text_field :state, class: "form-control"  %>
     </div>
-    <div class="field">
-      <%= f.label :city %>
-      <%= f.text_field :city %>
+
+    <%= f.label :city %>
+    <div class="form-group">
+      <%= f.text_field :city, class: "form-control"  %>
     </div>
-    <div class="field">
-      <%= f.label :street %>
-      <%= f.text_field :street %>
+
+    <%= f.label :street %>
+    <div class="form-group">
+      <%= f.text_field :street, class: "form-control"  %>
     </div>
-    <div class="field">
-      <%= f.label :zipcode %>
-      <%= f.text_field :zipcode %>
+
+    <%= f.label :zipcode %>
+    <div class="form-group">
+      <%= f.text_field :zipcode, class: "form-control"  %>
     </div>
   <%end%>
 
-  <div class="field" class="datetimepicker">
-    <%= form.label :started_at %>
-    <%= form.text_field :started_at %>
+  <%= form.label :started_at %>
+  <div class="form-group" class="datetimepicker">
+    <%= form.datetime_select :started_at, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :ended_at %>
-    <%= form.datetime_select :ended_at %>
+  <%= form.label :ended_at %>
+  <div class="form-group">
+    <%= form.datetime_select :ended_at, class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions text-center">
+    <%= form.submit "Create Event", class: "btn btn-light " %>
   </div>
 <% end %>

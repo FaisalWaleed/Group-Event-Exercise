@@ -2,8 +2,9 @@ class Api::V1::GroupEventsController < ApplicationController
   before_action :set_group_event, only: [:show, :update, :destroy,:publish]
   before_action :load_user, only: [:index,:create]
   skip_before_action :verify_authenticity_token
-  before_action :redirect_back_if_unauthorized
-  
+  before_action :redirect_back_if_unauthorized, only: [:update]
+  before_action :render_new_if_secret_is_nil, only: %i[create]
+
   def index
     @group_events = @user.group_events
     render json: @group_events.map(&:to_object)
@@ -52,7 +53,7 @@ class Api::V1::GroupEventsController < ApplicationController
       @user = User.where(id: params["user_id"]).first
       unless @user.present?
         render json: {error: "User not find with id "+params[:user_id]+" ."}
-      end  
+      end
     end
 
     def set_group_event
@@ -83,5 +84,13 @@ class Api::V1::GroupEventsController < ApplicationController
     def redirect_back_if_unauthorized
       if group_event_params[:secret].nil? || group_event_params[:secret] != @group_event.secret
         render json: {error: "Unauthorized, Please provide correct secret."}
+      end
+    end
+
+    def render_new_if_secret_is_nil
+      unless group_event_params[:secret].present?
+        flash[:error] = "either unauthorized or secret not provided"
+        render json: {error: "Please provide correct secret."}
+      end
     end
 end

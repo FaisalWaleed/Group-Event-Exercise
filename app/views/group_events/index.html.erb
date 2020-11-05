@@ -28,7 +28,13 @@
         <td><%= group_event.deleted_at %></td>
         <td><%= link_to 'Show', user_group_event_path(@user,group_event)%></td>
         <td><%= link_to 'Edit', edit_user_group_event_path(@user,group_event) %></td>
-        <td><%= link_to 'Destroy', user_group_event_path(@user,group_event), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <td>
+          <%= form_for group_event do |f| %>
+            <%= f.text_field :secret, value: nil %>
+            <%= f.submit "Delete", class: "btn btn-danger"%>
+          <% end %>>
+        <%= link_to 'Destroy', user_group_event_path(@user,group_event, secret: "valu"), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

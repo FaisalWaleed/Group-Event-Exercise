@@ -3,4 +3,10 @@
   <h1>New Group Event</h1>
 </div>
 
+<% flash.each do |type, msg| %>
+  <div style="color: red; padding: 1rem">
+    <%= msg %>
+  </div>
+<% end %>
+
 <%= render 'form', group_event: @group_event %>

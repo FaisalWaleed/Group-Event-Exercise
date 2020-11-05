@@ -19,7 +19,21 @@
         <td><%= group_event.ended_at %></td>
         <td><%= link_to 'Show', user_group_event_path(@user,group_event), class: "btn btn-light " %></td>
         <td><%= link_to 'Edit', edit_user_group_event_path(@user,group_event), class: "btn btn-info " %></td>
-        <td><%= link_to 'Destroy', user_group_event_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
+        <td>
+          <%= form_with(model: [@user, group_event]) do |f| %>
+            <div>
+              <%= f.text_field :secret, value: "", placeholder: "Enter secret to delete" %>
+              <%= f.text_field :deleted_at, value: Time.now, hidden: true %>
+              <%= f.text_field :delete, value: true, hidden: true %>
+              <%= f.submit "Delete", class: "btn btn-danger"%>
+            </div>
+          <% end %>
+        <td>
+          <% unless group_event.publish?  %>
+            <div class="actions text-center">
+              <%= link_to  "Publish", publish_user_group_event_path(@user, group_event),method: :post, class: "btn btn-light" %>
+            <div>
+          <% end %>
       </tr>
     <% end %>
   </tbody>

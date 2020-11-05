@@ -65,11 +65,16 @@
     <%= form.submit button_text, class: "btn btn-light " %>
   </div>
 
-  <% unless @group_event.publish?%>
-    <div class="actions text-center">
-      <%= link_to  "Publish", publish_user_group_event_path(@user,@group_event),method: :post, class: "btn btn-light" %>
-    <div>
+
+
+  <% if @group_event.id.present? %>
+    <% unless @group_event.publish?  %>
+      <div class="actions text-center">
+        <%= link_to  "Publish", publish_user_group_event_path(@user,@group_event),method: :post, class: "btn btn-light" %>
+      <div>
+    <% end %>
   <% end %>
+
 <% end %>
 
 <script>

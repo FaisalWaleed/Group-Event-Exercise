@@ -7,7 +7,7 @@ class GroupEvent < ApplicationRecord
   accepts_nested_attributes_for :location, allow_destroy: true
   validates :name, presence: true
 
-  default_scope { where(deleted_at: nil).where("ended_at < ?", Time.now) }
+  default_scope { where(deleted_at: nil) }
 
   def to_object
     {
@@ -31,7 +31,7 @@ class GroupEvent < ApplicationRecord
     end
     (ended_at - started_at).to_i
   end
-  
+
   def publish_able?
     name.present? &&
     location&.state.present? &&

@@ -8,7 +8,7 @@ describe "GET #index" do
       get :index,params: {:user_id=>@user.id}
     end
     it "returns https success" do
-      expect(response).to have_http_status :success 
+      expect(response).to have_http_status :success
     end
     it "JSON body response contains expected user attributes" do
       json_response = JSON.parse response.body
@@ -18,11 +18,11 @@ describe "GET #index" do
   describe "PUT #update" do
     before do
         @user=User.create(name: "test",email: "email@gmail.com")
-        @user.group_events.create(name: "Group Event")
-      put :update ,params: {"id": @user.group_events[0].id,"group_event":{"name": "updated name","description": "<div>updated</div>"}}
+        @user.group_events.create(name: "Group Event", secret: "secret")
+        put :update ,params: {"id": @user.group_events[0].id,"group_event":{"name": "updated name", secret: "secret", "description": "<div>updated</div>"}}
     end
     it "returns https success" do
-      expect(response).to have_http_status :success 
+      expect(response).to have_http_status :success
     end
     it "JSON body response contains Updated Group Event attributes" do
       json_response = JSON.parse response.body
@@ -33,10 +33,10 @@ describe "GET #index" do
   describe "POST #create" do
     before do
       @user=User.create(name: "test",email: "email@gmail.com")
-      post :create ,params: {user_id: @user.id,group_event: {id: 1,name: "new group event"}}
+      post :create ,params: {user_id: @user.id,group_event: {id: 1,name: "new group event", secret: "abcd"}}
     end
     it "returns https success" do
-      expect(response).to have_http_status :success 
+      expect(response).to have_http_status :success
     end
     it "JSON body response contains id for newly created object" do
       json_response = JSON.parse response.body
@@ -54,7 +54,7 @@ describe "GET #index" do
       post :publish ,params: {id: @group_event.id,group_event: {id: 1,name: "new group event"}}
     end
     it "returns https success" do
-      expect(response).to have_http_status :success 
+      expect(response).to have_http_status :success
     end
     it "JSON body response contains message for group event can not be published" do
       json_response = JSON.parse response.body
@@ -69,11 +69,12 @@ describe "GET #index" do
                                      description: "<div> message </div>",
                                      started_at: "2020-11-04 11:25:00",
                                      ended_at: "2020-12-04 11:25:00",
+                                     secret: "abcd",
                                      location: Location.create(state: "state",city: "city",street:"street",zipcode: "zipcode"))
       post :publish ,params: {id: @group_event.id,group_event: {id: 1,name: "new group event"}}
     end
     it "returns https success" do
-      expect(response).to have_http_status :success 
+      expect(response).to have_http_status :success
     end
     it "JSON body response contains message GroupEvent published successfully" do
       json_response = JSON.parse response.body
@@ -83,17 +84,18 @@ describe "GET #index" do
   describe "Delete #destroy" do
     before do
       @user=User.create(name: "test",email: "email@gmail.com")
-      @group_event=GroupEvent.create(user_id: @user.id,
-                                     name: "name")
-      delete :destroy ,params: {id: @group_event.id}
+      @group_event=GroupEvent.create( user_id: @user.id,
+                                      name: "name",
+                                      secret: "abcd"
+                                    )
+      put :update, params: {id: @group_event.id, group_event: { deleted_at: Time.now, secret: "abcd" }}
     end
     it "returns https success" do
-      expect(response).to have_http_status :success 
+      expect(response).to have_http_status :success
     end
     it "JSON body response contains message 'Group Event was successfully deleted.' " do
       json_response = JSON.parse response.body
       @group_event.reload
-      expect(json_response["message"]).to eq "Group Event was successfully deleted."
       expect(@group_event.deleted_at).not_to eq nil
     end
   end

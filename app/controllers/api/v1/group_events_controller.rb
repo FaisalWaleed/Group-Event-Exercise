@@ -2,7 +2,7 @@ class Api::V1::GroupEventsController < ApplicationController
   before_action :set_group_event, only: [:show, :update, :destroy,:publish]
   before_action :load_user, only: [:index,:create]
   skip_before_action :verify_authenticity_token
-  before_action :redirect_back_if_unauthorized, only: [:update]
+  before_action :redirect_back_if_unauthorized, only: [:update, :destroy]
   before_action :render_new_if_secret_is_nil, only: %i[create]
 
   def index
@@ -72,6 +72,7 @@ class Api::V1::GroupEventsController < ApplicationController
         :ended_at,
         :description,
         :secret,
+        :deleted_at,
         location_attributes: [
           :state,
           :city,
@@ -82,7 +83,7 @@ class Api::V1::GroupEventsController < ApplicationController
     end
 
     def redirect_back_if_unauthorized
-      if group_event_params[:secret].nil? || group_event_params[:secret] != @group_event.secret
+      if !group_event_params[:secret].present? || group_event_params[:secret] != @group_event.secret
         render json: {error: "Unauthorized, Please provide correct secret."}
       end
     end
